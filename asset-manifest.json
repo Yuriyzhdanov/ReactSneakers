@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/Yuriyzhdanov/ReactSneakers.git/static/css/main.ed2853dc.css",
+    "main.js": "/Yuriyzhdanov/ReactSneakers.git/static/js/main.e9889b0c.js",
+    "static/media/sneakers copy.png": "/Yuriyzhdanov/ReactSneakers.git/static/media/sneakers copy.0f549326117bb3643e15.png",
+    "static/media/cart-empty.svg": "/Yuriyzhdanov/ReactSneakers.git/static/media/cart-empty.6e176d79bb733a4b8773bd1b0e27cfe1.svg",
+    "static/media/order-complete.svg": "/Yuriyzhdanov/ReactSneakers.git/static/media/order-complete.8bbb5c74503073a26fd62f37de0733d5.svg",
+    "static/media/btn-checked.svg": "/Yuriyzhdanov/ReactSneakers.git/static/media/btn-checked.890c21e6e092e231b04d7f8d3b23767a.svg",
+    "static/media/heart-unliked.svg": "/Yuriyzhdanov/ReactSneakers.git/static/media/heart-unliked.dbddb85a65c80405e2d8ac198b59ea70.svg",
+    "static/media/favorite-outline 1.svg": "/Yuriyzhdanov/ReactSneakers.git/static/media/favorite-outline 1.fb6fc173851dd67a64d51b7306e810d1.svg",
+    "static/media/heart-liked.svg": "/Yuriyzhdanov/ReactSneakers.git/static/media/heart-liked.553d151b49e111459401445d4a6d4f19.svg",
+    "static/media/union.svg": "/Yuriyzhdanov/ReactSneakers.git/static/media/union.381202f7e3edbc1a00b14fbd5e529a32.svg",
+    "index.html": "/Yuriyzhdanov/ReactSneakers.git/index.html",
+    "static/media/cart.svg": "/Yuriyzhdanov/ReactSneakers.git/static/media/cart.5113b08fb682dc25f3856ef704a6c05d.svg",
+    "static/media/search.svg": "/Yuriyzhdanov/ReactSneakers.git/static/media/search.48c52bf5d459537e27c07f88eb08c050.svg",
+    "static/media/btn-remove.svg": "/Yuriyzhdanov/ReactSneakers.git/static/media/btn-remove.b1fef0aa93fbf25374f4991d23f900d8.svg",
+    "static/media/add_plus.svg": "/Yuriyzhdanov/ReactSneakers.git/static/media/add_plus.b88e94c67ea7ac0cfa69033241c96b8c.svg",
+    "static/media/arrow-right.svg": "/Yuriyzhdanov/ReactSneakers.git/static/media/arrow-right.fc3222511ec5a224a4abf3bbf4c2566f.svg",
+    "main.ed2853dc.css.map": "/Yuriyzhdanov/ReactSneakers.git/static/css/main.ed2853dc.css.map",
+    "main.e9889b0c.js.map": "/Yuriyzhdanov/ReactSneakers.git/static/js/main.e9889b0c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ed2853dc.css",
+    "static/js/main.e9889b0c.js"
+  ]
+}
