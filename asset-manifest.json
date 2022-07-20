@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/Yuriyzhdanov/ReactSneakers.git/static/css/main.ed2853dc.css",
+    "main.css": "/Yuriyzhdanov/ReactSneakers.git/static/css/main.46ef5ce0.css",
     "main.js": "/Yuriyzhdanov/ReactSneakers.git/static/js/main.e9889b0c.js",
     "static/media/sneakers copy.png": "/Yuriyzhdanov/ReactSneakers.git/static/media/sneakers copy.0f549326117bb3643e15.png",
     "static/media/cart-empty.svg": "/Yuriyzhdanov/ReactSneakers.git/static/media/cart-empty.6e176d79bb733a4b8773bd1b0e27cfe1.svg",
@@ -16,11 +16,11 @@
     "static/media/btn-remove.svg": "/Yuriyzhdanov/ReactSneakers.git/static/media/btn-remove.b1fef0aa93fbf25374f4991d23f900d8.svg",
     "static/media/add_plus.svg": "/Yuriyzhdanov/ReactSneakers.git/static/media/add_plus.b88e94c67ea7ac0cfa69033241c96b8c.svg",
     "static/media/arrow-right.svg": "/Yuriyzhdanov/ReactSneakers.git/static/media/arrow-right.fc3222511ec5a224a4abf3bbf4c2566f.svg",
-    "main.ed2853dc.css.map": "/Yuriyzhdanov/ReactSneakers.git/static/css/main.ed2853dc.css.map",
+    "main.46ef5ce0.css.map": "/Yuriyzhdanov/ReactSneakers.git/static/css/main.46ef5ce0.css.map",
     "main.e9889b0c.js.map": "/Yuriyzhdanov/ReactSneakers.git/static/js/main.e9889b0c.js.map"
   },
   "entrypoints": [
-    "static/css/main.ed2853dc.css",
+    "static/css/main.46ef5ce0.css",
     "static/js/main.e9889b0c.js"
   ]
 }
