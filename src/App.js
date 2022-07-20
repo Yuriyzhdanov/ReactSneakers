@@ -1,81 +1,145 @@
-import plus from "../src/img/Tilda_Icons_3_Store/plus.svg"
-import search from "../src/img/Tilda_Icons_3_Store/search.svg"
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import axios from "axios";
 
-import AirForce from "../src/img/sneakers/nike/Air-Force.jpeg"
-import AirForce1 from "../src/img/sneakers/nike/Air-Force-1.jpeg"
-import AirForce2 from "../src/img/sneakers/nike/Air-Force-2.jpeg"
+import AppContext from "../src/context.js";
 
-import Card from "./components/Card.js"
-import Header from "./components/Header"
-import CartDrawer from "./components/CartDrawer"
+import Header from "./components/Header/Header"
+import CartDrawer from "./components/CartDrawer/CartDrawer"
+import Home from "./pages/Home.jsx"
+import Favorites from "./pages/Favorites";
+import Orders from "./pages/Orders";
 
 function App() {
+	const [items, setItems] = React.useState([]);
+	const [cartItems, setCartItems] = React.useState([]);
+	const [favorites, setFavorites] = React.useState([]);
+	const [searchValue, setSearchValue] = React.useState('');
+	const [cartOpened, setCartOpened] = React.useState(false);
+	const [isLoading, setIsLoading] = React.useState(true);
+
+
+	React.useEffect(() => {
+		async function fetchData() {
+			try {
+				const [itemsResponse, cartResponse, favotitesResponse] = await Promise.all([
+					axios.get("https://62ceaedc826a88972d00ab28.mockapi.io/items"),
+					axios.get("https://62ceaedc826a88972d00ab28.mockapi.io/cart"),
+					axios.get("https://62ceaedc826a88972d00ab28.mockapi.io/favorites"),]);
+				setIsLoading(false);
+				setCartItems(cartResponse.data)
+				setFavorites(favotitesResponse.data)
+				setItems(itemsResponse.data)
+			} catch (error) {
+				alert('error while requesting data (fetch)')
+				console.error(error);
+			}
+		}
+		fetchData();
+	}, []);
+	const onAddToCart = async (obj) => {
+		try {
+			const findItem = cartItems.find((item) => Number(item.parentId) === Number(obj.id))
+			if (findItem) {
+				setCartItems((prev) => prev.filter((item) => Number(item.parentId) !== Number(obj.id)));
+				await axios.delete(`https://62ceaedc826a88972d00ab28.mockapi.io/cart/${findItem.id}`)
+			} else {
+				setCartItems((prev) => [...prev, obj]);//подставляем объект не дожидаясь ответа сервака
+				const { data } = await axios.post("https://62ceaedc826a88972d00ab28.mockapi.io/cart", obj);//получаем запрос
+				setCartItems((prev) => prev.map(item => {//заменияем ответ на актуальный id
+					if (item.parentId === data.parentId) {
+						return {
+							...item,
+							id: data.id
+						};
+					}
+					return item
+				}));
+			}
+		} catch (error) {
+			alert("failed add to cart");
+			console.error(error);
+		}
+	};
+	const onRemoveItem = (id) => {
+		try {
+			axios.delete(`https://62ceaedc826a88972d00ab28.mockapi.io/cart/${id}`);
+			setCartItems((prev) => prev
+				.filter(item => Number(item.id) !== Number(id)));
+		} catch (error) {
+			alert("failed to remove item")
+			console.error(error);
+		}
+	};
+	const onAddToFavorite = async (obj) => {
+		try {
+			if (favorites.find((favObj) => Number(favObj.id) === Number(obj.id))) {
+				axios.delete(`https://62ceaedc826a88972d00ab28.mockapi.io/favorites/${obj.id}`);//удаление 
+				//setFavorites((prev) => prev.filter((item) => item.id !== obj.id));
+				setFavorites((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)));
+			} else {
+				const { data } = await axios.post('https://62ceaedc826a88972d00ab28.mockapi.io/favorites', obj);
+				setFavorites((prev) => [...prev, data]);
+			}
+		} catch (error) {
+			alert("failed to add to favorites");
+			console.error(error);
+		}
+	};
+	const onChangeSearchInput = (event) => {
+		setSearchValue(event.target.value);
+	};
+	const isItemAdded = (id) => {
+		return cartItems.some((obj) => Number(obj.parentId) === Number(id));
+	};
+
 	return (
-		<div className="wrapper clear">
-			<CartDrawer />
-			<Header />
-			<div className="content p-40">
+		<AppContext.Provider value={{
+			items,
+			cartItems,
+			favorites,
+			isItemAdded,
+			onAddToFavorite,
+			setCartOpened,
+			setCartItems,
+			onAddToCart
+		}}>
+			<div className="wrapper clear">
+				<CartDrawer
+					items={cartItems}
+					onClose={() => setCartOpened(false)}
+					onRemove={onRemoveItem}
+					onRemoveFav={() => setFavorites(false)}
+					opened={cartOpened} />
 
-				<div className="d-flex align-center mb-40 justify-between">
-					<h1>Sneakers catalog </h1>
-					<div className="search-block">
-						<img width={15} height={15} src={search} alt="Search" />
-						<input placeholder="Search..." />
-					</div>
-				</div>
+				<Header onClickCart={() => setCartOpened(true)} />
 				
-				<div className="d-flex">
-					<Card />
-					<div className="card" >
-						<img width={150} height={200} src={AirForce} alt="Sneakers" />
-						<h5 >
-							Men's shoes Nike-Air-Force-1-LV4</h5>
-						<div className="d-flex justify-between align-center">
-							<div className="d-flex flex-column ">
-								<span> Цена: </span>
-								<b> 2999 ₴</b>
-							</div>
-							<button className="button">
-								<img width={15} height={15} src={plus} />
-							</button>
-						</div>
-					</div>
+				<Routes>
+					<Route path='/' element={
+						<Home
+							items={items}
+							searchValue={searchValue}
+							setSearchValue={setSearchValue}
+							onChangeSearchInput={onChangeSearchInput}
+							onAddToFavorite={onAddToFavorite}
+							onAddToCart={onAddToCart}
+							cartItems={cartItems}
+							isLoading={isLoading}
+						/>}>
 
-					<div className="card" >
-						<img width={150} height={200} src={AirForce1} alt="Sneakers" />
-						<h5>
-							Men's shoes Nike-Air-Force-1-LV8</h5>
-						<div className="d-flex justify-between align-center">
-							<div className="d-flex flex-column ">
-								<span> Цена: </span>
-								<b> 2999 ₴</b>
-							</div>
-							<button className="button">
-								<img width={15} height={15} src={plus} />
-							</button>
-						</div>
-					</div>
-
-					<div className="card" >
-						<img width={150} height={200} src={AirForce2} alt="Sneakers" />
-						<h5>
-							Men's shoes Nike-Air-Force-1-07-ESS</h5>
-						<div className="d-flex justify-between align-center">
-							<div className="d-flex flex-column ">
-								<span> Цена: </span>
-								<b> 2999 ₴</b>
-							</div>
-							<button className="button">
-								<img width={15} height={15} src={plus} />
-							</button>
-						</div>
-					</div>
-
-
-				</div>
+					</Route>
+				</Routes>
+				<Routes>
+					<Route path='/favorites' element={
+						<Favorites />}>
+					</Route>
+					<Route path='/orders' element={
+						<Orders />}>
+					</Route>
+				</Routes>
 			</div>
-		</div>
+
+		</AppContext.Provider>
 	);
 }
-
 export default App;
